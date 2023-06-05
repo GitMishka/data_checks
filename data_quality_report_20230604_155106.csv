@@ -1,0 +1,7 @@
+,post_id,post_title,subreddit,post_upvote_ratio,post_comments,post_timeposted,duplicate_ids,negative_comments,invalid_upvote_ratios,future_dates
+Null values,0,0,0,0,0,0,,,,
+Data types,object,object,object,float64,int64,datetime64[ns],,,,
+Duplicate IDs,,,,,,,0.0,,,
+Negative comments,,,,,,,,0.0,,
+Invalid upvote ratios,,,,,,,,,0.0,
+Future dates,,,,,,,,,,0.0

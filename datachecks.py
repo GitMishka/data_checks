@@ -3,7 +3,6 @@ import pandas as pd
 import config
 from datetime import datetime
 
-# define your data quality check functions
 def check_null_values(df):
     return df.isnull().sum().to_dict()
 
@@ -22,7 +21,6 @@ def check_upvote_ratio_range(df):
 def check_future_timestamps(df):
     return {'future_dates': len(df[df['post_timeposted'] > pd.Timestamp.now()])}
 
-# create connection to your database
 conn = psycopg2.connect(
     host=config.pg_host,
     database=config.pg_database,
@@ -30,13 +28,10 @@ conn = psycopg2.connect(
     password=config.pg_password
 )
 
-# write a SQL query to fetch the data
 query = "SELECT * FROM reddit_posts_hot"
 
-# use pandas to execute the query and store the result in a DataFrame
 df = pd.read_sql_query(query, conn)
 
-# now you can run your checks on the DataFrame
 results = {
     'Null values': check_null_values(df),
     'Duplicate IDs': check_unique_ids(df),
@@ -46,10 +41,8 @@ results = {
     'Future dates': check_future_timestamps(df),
 }
 
-# output the results to a CSV file
 results_df = pd.DataFrame.from_dict(results, orient='index')
 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
 results_df.to_csv(f'data_quality_report_{timestamp}.csv')
 
-# remember to close the connection once you're done
 conn.close()
